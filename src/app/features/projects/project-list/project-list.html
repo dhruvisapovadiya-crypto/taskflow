@@ -1,1 +1,117 @@
-<p>project-list works!</p>
+<div class="projects-page">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo">T</div>
+      <div>
+        <h2>TaskFlow</h2>
+        <p>Project OS</p>
+      </div>
+    </div>
+
+    <nav class="menu">
+      <a routerLink="/dashboard"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a>
+      <a routerLink="/workspaces"><i class="bi bi-kanban-fill"></i> Workspaces</a>
+      <a class="active"><i class="bi bi-folder2-open"></i> Projects</a>
+      <a><i class="bi bi-calendar3"></i> Calendar</a>
+      <a><i class="bi bi-bar-chart-line-fill"></i> Reports</a>
+      <a><i class="bi bi-gear-fill"></i> Settings</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <div>
+        <span class="eyebrow">Project Hub</span>
+        <h1>All Projects</h1>
+        <p>Track project health, deadlines, progress and team work.</p>
+      </div>
+
+      <div class="top-actions">
+        <button class="filter-btn">
+          <i class="bi bi-sliders"></i>
+          Filter
+        </button>
+
+        <button class="create-btn">
+          <i class="bi bi-plus-lg"></i>
+          New Project
+        </button>
+
+        <div class="profile">{{ userName.charAt(0) }}</div>
+      </div>
+    </header>
+
+    <section class="project-hero">
+      <div>
+        <span>Active Sprint</span>
+        <h2>4 projects need attention this week.</h2>
+        <p>Focus on high priority projects and move blockers before deadline.</p>
+      </div>
+
+      <div class="hero-mini">
+        <h3>76%</h3>
+        <p>Average progress</p>
+      </div>
+    </section>
+
+    <section class="projects-grid">
+      @for (project of projects; track project.id) {
+        <div class="project-card">
+
+          <div class="card-head">
+            <div class="project-icon">
+              {{ project.name.charAt(0) }}
+            </div>
+
+            <span
+              class="priority"
+              [class.high]="project.priority === 'High'"
+              [class.medium]="project.priority === 'Medium'"
+              [class.low]="project.priority === 'Low'"
+            >
+              {{ project.priority }}
+            </span>
+          </div>
+
+          <h3>{{ project.name }}</h3>
+          <p class="desc">{{ project.desc }}</p>
+
+          <div class="status-line">
+            <span>{{ project.status }}</span>
+            <b>{{ project.progress }}%</b>
+          </div>
+
+          <div class="progress-track">
+            <div class="progress-fill" [style.width.%]="project.progress"></div>
+          </div>
+
+          <div class="meta-grid">
+            <div>
+              <i class="bi bi-list-task"></i>
+              <span>{{ project.tasks }} Tasks</span>
+            </div>
+
+            <div>
+              <i class="bi bi-people"></i>
+              <span>{{ project.members }} Members</span>
+            </div>
+
+            <div>
+              <i class="bi bi-calendar-event"></i>
+              <span>Due {{ project.due }}</span>
+            </div>
+          </div>
+
+          <button class="open-btn" [routerLink]="['/board', project.id]">
+            Open Board
+            <i class="bi bi-arrow-right"></i>
+          </button>
+
+        </div>
+      }
+    </section>
+
+  </main>
+</div>

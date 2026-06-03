@@ -1,1 +1,153 @@
-<p>dashboard works!</p>
+<div class="dashboard-page">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo">T</div>
+      <div>
+        <h2>TaskFlow</h2>
+        <p>Project OS</p>
+      </div>
+    </div>
+
+    <nav class="menu">
+      <a class="active"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a>
+      <a routerLink="/workspaces"><i class="bi bi-kanban-fill"></i> Boards</a>
+      <a><i class="bi bi-folder2-open"></i> Projects</a>
+      <a><i class="bi bi-calendar3"></i> Calendar</a>
+      <a><i class="bi bi-bar-chart-line-fill"></i> Reports</a>
+      <a><i class="bi bi-gear-fill"></i> Settings</a>
+    </nav>
+
+    <div class="upgrade-box">
+      <span>PRO</span>
+      <h3>AI Sprint Planner</h3>
+      <p>Generate tasks and sprint plans faster.</p>
+      <button>Try Now</button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <div>
+        <span class="eyebrow">Welcome back!!</span>
+        <h1>Hello,  {{ userName }}</h1>
+        <p>Here is your project command center for today.</p>
+      </div>
+
+      <div class="actions">
+        <div class="search-box">
+          <i class="bi bi-search"></i>
+          <input placeholder="Search tasks, projects..." />
+        </div>
+
+        <button class="create-btn">
+          <i class="bi bi-plus-lg"></i>
+          New Project
+        </button>
+
+        <div class="profile">{{ userName.charAt(0) }}</div>
+      </div>
+    </header>
+
+    <section class="hero-card">
+      <div>
+        <span class="hero-badge">Sprint Week 03</span>
+        <h2>Build smarter, ship faster.</h2>
+        <p>Your team completed 42 tasks this week. Keep pushing the sprint forward.</p>
+
+        <div class="hero-actions">
+          <button>Open Board</button>
+          <button class="ghost">View Reports</button>
+        </div>
+      </div>
+
+      <div class="hero-progress">
+        <div class="ring">
+          <span>86%</span>
+        </div>
+        <p>Overall Progress</p>
+      </div>
+    </section>
+
+    <section class="stats-grid">
+      @for (stat of stats; track stat) {
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="bi" [class]="stat.icon"></i>
+          </div>
+
+          <div>
+            <p>{{ stat.title }}</p>
+            <h3>{{ stat.value }}</h3>
+            <span>{{ stat.change }} this month</span>
+          </div>
+        </div>
+      }
+    </section>
+
+    <section class="content-grid">
+
+      <div class="panel projects-panel">
+        <div class="panel-head">
+          <div>
+            <h3>Recent Projects</h3>
+            <p>Live progress of your active projects</p>
+          </div>
+          <button>View all</button>
+        </div>
+
+        @for (project of projects; track project) {
+          <div class="project-row">
+            <div class="project-info">
+              <div class="project-avatar">{{ project.name.charAt(0) }}</div>
+              <div>
+                <h4>{{ project.name }}</h4>
+                <p>{{ project.team }}</p>
+              </div>
+            </div>
+
+            <div class="project-status">{{ project.status }}</div>
+
+            <div class="project-progress">
+              <div class="progress-track">
+                <div class="progress-fill" [style.width.%]="project.progress"></div>
+              </div>
+              <span>{{ project.progress }}%</span>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="panel tasks-panel">
+        <div class="panel-head">
+          <div>
+            <h3>My Tasks</h3>
+            <p>Priority work assigned to you</p>
+          </div>
+        </div>
+
+        @for (task of tasks; track task) {
+          <div class="task-row">
+            <div class="check-dot"></div>
+
+            <div>
+              <h4>{{ task.title }}</h4>
+              <p>{{ task.tag }} • {{ task.time }}</p>
+            </div>
+
+            <span
+              class="priority"
+              [class.high]="task.priority === 'High'"
+              [class.medium]="task.priority === 'Medium'"
+            >
+              {{ task.priority }}
+            </span>
+          </div>
+        }
+      </div>
+
+    </section>
+
+  </main>
+</div>
