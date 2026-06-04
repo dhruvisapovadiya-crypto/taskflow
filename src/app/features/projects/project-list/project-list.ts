@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TeamMembers } from '../../team/team-members/team-members';
+
 
 @Component({
   selector: 'app-project-list',

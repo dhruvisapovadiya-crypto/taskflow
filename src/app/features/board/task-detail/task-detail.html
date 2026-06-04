@@ -1,1 +1,120 @@
-<p>task-detail works!</p>
+<div class="task-detail-page">
+    <div class="detail-shell">
+        <div class="detail-main">
+            <div class="breadcrumb">
+                <span>Projects</span>
+                <i class="bi bi-chevron-right"></i>
+                <span>{{task.project}}</span>
+                <i class="bi bi-chevron-right"></i>
+                <b>Task Detail</b>
+            </div>
+
+            <div class="title-section">
+                <span class="label">{{task.label}}</span>
+                <h1>{{task.title}}</h1>
+                <p>{{task.description}}</p>
+            </div>
+
+            <div class="action-row">
+                <button><i class="bi bi-pencil-square"></i>Edit Task</button>
+                <button><i class="bi bi-paperclip"></i>Attach File</button>
+                <button><i class="bi bi-share"></i>Share</button>
+            </div>
+            <div class="content-card">
+                <div class="card-head">
+                    <h3>Description</h3>
+                    <span>Updated recently</span>
+                </div>
+                <p>This task is focused on creating a clean Kanban board interface for project management.The
+                    board should support columns ,cards,priority, assignee avtar and responsive layout.
+                </p>
+            </div>
+
+            <div class="content-card">
+                <div class="card-head">
+                    <h3>Comments</h3>
+                    <span>{{comments.length}} comments</span>
+                </div>
+                <div class="comment-box">
+                    <textarea placeholder="Write your comment..." [(ngModel)]="newComment"></textarea>
+                    <button (click)="addComment()">Add Comment</button>
+                </div>
+
+                <div class="comments-list">
+                    @for (comment of comments; track comment) {
+                    <div class="comment-item">
+                        <div class="avatar">
+                            {{comment.user.charAt(0)}}
+                        </div>
+                        <div>
+                            <div class="comment-top">
+                                <h4>{{comment.user}}</h4>
+                                <span>{{comment.time}}</span>
+                            </div>
+                            <p>{{comment.text}}</p>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <aside class="detail-side">
+            <div class="side-card status-card">
+                <div class="status-icon">
+                    <i class="bi bi-lightning-charge-fill"></i>
+                </div>
+
+                <h3>{{task.status}}</h3>
+                <p>Current task status</p>
+            </div>
+            <div class="side-card">
+                <h3>Task Information</h3>
+                <div class="info-list">
+                    <div>
+                        <span>Status</span>
+                        <b>{{task.status}}</b>
+                    </div>
+
+                    <div>
+                        <span>Priority</span>
+                        <b class="priority">{{task.priority}}</b>
+                    </div>
+
+                    <div>
+                        <span>Assignee</span>
+                        <b>{{task.assignee}}</b>
+                    </div>
+
+                    <div>
+                        <span>Due Date</span>
+                        <b>{{task.dueDate}}</b>
+                    </div>
+
+                    <div>
+                        <span>Project</span>
+                        <b>{{task.project}}</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="side-card">
+                <h3>Activity History</h3>
+
+                <div class="activity-list">
+                    @for (activity of activities; track activity) {
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="bi" [class]="activity.icon"></i>
+                        </div>
+
+                        <div>
+                            <p>{{activity.text}}</p>
+                            <span>{{activity.time}}</span>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
