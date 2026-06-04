@@ -1,93 +1,231 @@
 <div class="board-page">
-    <aside class="sidebar">
-        <div class="brand">
-            <div class="brand-logo">T</div>
-            <div>
-                <h2>TaskFlow</h2>
-                <p>Project OS</p>
-            </div>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo">T</div>
+      <div>
+        <h2>TaskFlow</h2>
+        <p>Project OS</p>
+      </div>
+    </div>
+
+    <nav class="menu">
+      <a routerLink="/dashboard">
+        <i class="bi bi-grid-1x2-fill"></i>
+        Dashboard
+      </a>
+
+      <a routerLink="/workspaces">
+        <i class="bi bi-kanban"></i>
+        Workspaces
+      </a>
+
+      <a routerLink="/projects">
+        <i class="bi bi-folder2-open"></i>
+        Projects
+      </a>
+
+      <a class="active">
+        <i class="bi bi-columns-gap"></i>
+        Board
+      </a>
+
+      <a>
+        <i class="bi bi-calendar3"></i>
+        Calendar
+      </a>
+
+      <a>
+        <i class="bi bi-gear-fill"></i>
+        Settings
+      </a>
+    </nav>
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <div>
+        <span class="eyebrow">Sprint Board</span>
+        <h1>TaskFlow Web App</h1>
+        <p>Drag tasks between columns and track sprint progress.</p>
+      </div>
+
+      <div class="top-actions">
+        <button class="member-btn">
+          <i class="bi bi-people"></i>
+          Team
+        </button>
+
+        <button class="create-btn">
+          <i class="bi bi-plus-lg"></i>
+          Add Task
+        </button>
+
+        <div class="profile">
+          {{ userName.charAt(0) }}
+        </div>
+      </div>
+    </header>
+
+    <section class="board-hero">
+      <div>
+        <h2>Current Sprint</h2>
+        <p>Move cards from Todo to Done as your team completes work.</p>
+      </div>
+
+      <div class="sprint-stats">
+        <div>
+          <h3>5</h3>
+          <span>Total Tasks</span>
         </div>
 
-        <nav class="menu">
-            <a routerLink="/workspaces"><i class="bi bi-grid-1x2-fill"></i>Dashboard</a>
-            <a routerLink="/workspaces"><i class="bi bi-kanban"></i>Workspaces</a>
-            <a routerLink="/projects"><i class="bi bi-folder2-open"></i>Projects</a>
-            <a><i class="bi bi-calender3"></i>Calender</a>
-            <a><i class="bi bi-gear-fill"></i>Settings</a>
-        </nav>
-    </aside>
-    <main class="main">
-        <header class="topbar">
-            <div>
-                <span class="eyebrow">Sprint Board</span>
-                <h1>TaskFlow Web App</h1>
-                <p>Drag tasks between columns and task sprint progress.</p>
-            </div>
-            <div class="top-actions">
-                <button class="member-btn"><i class="bi bi-people"></i>Team</button>
-                <button class="create-btn"><i class="bi bi-plus-lg"></i>Add Task</button>
-                <div class="profile">{{userName.charAt(0)}}</div>
-            </div>
-        </header>
+        <div>
+          <h3>1</h3>
+          <span>Completed</span>
+        </div>
 
-        <section class="board-hero">
-            <div>
-                <h2>Current Sprint</h2>
-                <p>Move cards from Todo to Done as Your team complets work.</p>
-            </div>
-            <div class="sprint-stats">
-                <div>
-                    <h3>5</h3>
-                    <span>Total Tasks</span>
-                </div>
-                <div>
-                    <h3>1</h3>
-                    <span>Completed</span>
-                </div>
-                <div>
-                    <h3>86%</h3>
-                    <span>Health</span>
-                </div>
-            </div>
-        </section>
-        <section class="kanban-wrapper">
-            @for (column of columns; track column.id) {
-            <div class="kanban-column">
-                <div class="colum-header">
-                    <div><span class="status-dot" [class]="column.color"></span>
-                        <h3>{{column.title}}</h3>
-                    </div>
-                    <b>{{column.tasks.length}}</b>
-                </div>
-                <div class="task-list" cdkDropList [id]="column.id" [cdkDropListData]="column.tasks"
-                    [cdkDropListConnectedTo]="connectedDropLists" (cdkDropListDropped)="drop($event)">
-                    @for (task of column.tasks; track task.id) {
-                    <div class="task-card" cdkDrag>
-                        <div class="drag-placeholder" *cdkDragPlaceholder></div>
-                        <div class="task-top">
-                            <span class="task-tag">{{task.tag}}</span>
-                            <span class="priority" [class.high]="task.priority==='High'"
-                                [class.high]="task.priority==='Medium'" [class.high]="task.priority==='Low'">
-                                {{task.priority}}
-                            </span>
-                        </div>
-                        <h4>{{task.title}}</h4>
-                        <p>{{task.desc}}</p>
-                        <div class="task-footer">
-                            <div class="avatar">{{task.assignee}}</div>
-                            <div class="due-date"><i class="bi bi-calender-event"></i>{{task.due}}</div>
-                        </div>
-                    </div>
-                    }
+        <div>
+          <h3>86%</h3>
+          <span>Health</span>
+        </div>
+      </div>
+    </section>
 
-                    @if(column.tasks.length===0){
-                        <div class="empty-state">
-                            Drop task here..
-                        </div>
-                    }
-                </div>
+    <section class="kanban-wrapper">
+      @for (column of columns; track column.id) {
+
+        <div class="kanban-column">
+
+          <div class="column-header">
+            <div>
+              <span class="status-dot" [class]="column.color"></span>
+              <h3>{{ column.title }}</h3>
             </div>
+
+            <b>{{ column.tasks.length }}</b>
+          </div>
+
+          <div
+            class="task-list"
+            cdkDropList
+            [id]="column.id"
+            [cdkDropListData]="column.tasks"
+            [cdkDropListConnectedTo]="connectedDropLists"
+            (cdkDropListDropped)="drop($event)"
+          >
+
+            @for (task of column.tasks; track task.id) {
+
+              <div
+                class="task-card"
+                cdkDrag
+                (click)="openTask(task)"
+              >
+
+                <div class="drag-placeholder" *cdkDragPlaceholder></div>
+
+                <div class="task-top">
+                  <span class="task-tag">
+                    {{ task.tag }}
+                  </span>
+
+                  <span
+                    class="priority"
+                    [class.high]="task.priority === 'High'"
+                    [class.medium]="task.priority === 'Medium'"
+                    [class.low]="task.priority === 'Low'"
+                  >
+                    {{ task.priority }}
+                  </span>
+                </div>
+
+                <h4>{{ task.title }}</h4>
+
+                <p>{{ task.desc }}</p>
+
+                <div class="task-footer">
+                  <div class="avatar">
+                    {{ task.assignee }}
+                  </div>
+
+                  <div class="due-date">
+                    <i class="bi bi-calendar-event"></i>
+                    {{ task.due }}
+                  </div>
+                </div>
+
+              </div>
             }
-        </section>
-    </main>
+
+            @if (column.tasks.length === 0) {
+              <div class="empty-state">
+                Drop task here..
+              </div>
+            }
+
+          </div>
+
+        </div>
+      }
+    </section>
+
+    @if (selectedTask) {
+
+      <div class="drawer-backdrop" (click)="closeTask()"></div>
+
+      <div class="task-drawer">
+
+        <div class="drawer-header">
+          <div>
+            <span>{{ selectedTask.tag }}</span>
+            <h2>{{ selectedTask.title }}</h2>
+          </div>
+
+          <button type="button" (click)="closeTask()">
+            ×
+          </button>
+        </div>
+
+        <p class="drawer-description">
+          {{ selectedTask.desc }}
+        </p>
+
+        <div class="drawer-info">
+          <div>
+            <span>Priority</span>
+            <b>{{ selectedTask.priority }}</b>
+          </div>
+
+          <div>
+            <span>Assignee</span>
+            <b>{{ selectedTask.assignee }}</b>
+          </div>
+
+          <div>
+            <span>Due Date</span>
+            <b>{{ selectedTask.due }}</b>
+          </div>
+
+          <div>
+            <span>Tag</span>
+            <b>{{ selectedTask.tag }}</b>
+          </div>
+        </div>
+
+        <div class="comment-area">
+          <h3>Comments</h3>
+
+          <textarea placeholder="Write comment..."></textarea>
+
+          <button>
+            Add Comment
+          </button>
+        </div>
+
+      </div>
+    }
+
+  </main>
+
 </div>

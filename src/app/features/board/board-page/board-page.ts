@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import {
   CdkDragDrop,
   DragDropModule,
   moveItemInArray,
   transferArrayItem
 } from '@angular/cdk/drag-drop';
-import { RouterLink } from "@angular/router";
 
 interface Task {
   id: number;
@@ -34,6 +34,8 @@ interface BoardColumn {
 })
 export class BoardPage {
   userName = localStorage.getItem('userName') || 'Dhruvi';
+
+  selectedTask: Task | null = null;
 
   columns: BoardColumn[] = [
     {
@@ -113,6 +115,14 @@ export class BoardPage {
 
   get connectedDropLists(): string[] {
     return this.columns.map(column => column.id);
+  }
+
+  openTask(task: Task) {
+    this.selectedTask = task;
+  }
+
+  closeTask() {
+    this.selectedTask = null;
   }
 
   drop(event: CdkDragDrop<Task[]>) {
