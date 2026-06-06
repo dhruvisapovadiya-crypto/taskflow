@@ -1,1 +1,106 @@
-<p>invite-member works!</p>
+<div class="invite-page">
+    <div class="invite-shell">
+        <div class="invite-left">
+            <span class="badge-title">Team invitation</span>
+            <h1>Invite a new member to join your work space</h1>
+            <p>
+                Add teammates to your project workspace and assign their role before
+                they start working on tasks, boards and sprints.
+            </p>
+
+            <div class="info-list">
+                <div>
+                    <i class="bi bi-shield-check"></i>
+                    <span>Role Based access</span>
+                </div>
+
+                <div>
+                    <i class="bi bi-kanban"></i>
+                    <span>Workspace collaboration</span>
+                </div>
+
+                <div>
+                    <i class="bi bi-bell"></i>
+                    <span>Email invitation flow</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="invite-card">
+            <div class="card-header">
+                <button class="back-btn" routerLink="/team"><i class="bi bi-arrow-left"></i></button>
+                <div>
+                    <h2>Invite Member</h2>
+                    <p>Fill member details and send workspace invitation.</p>
+                </div>
+            </div>
+
+            @if(successMessage){
+            <div class="success-alert"><i class="bi bi-check-circle-fill"></i>{{successMessage}}</div>
+            }
+
+            <form #inviteForm="ngForm" (ngSubmit)="sendInvite(inviteForm)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="name" class="form-control" placeholder="Enter Member name" required
+                        minlength="3" pattern="^[a-zA-Z ]+$" [(ngModel)]="member.name" #name="ngModel" />
+
+                    @if(name.invalid && name.touched){
+                    <small>Name is required and only letters allowed</small>
+                    }
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" class="form-control" placeholder="Enter Member Email" required
+                        email [(ngModel)]="member.email" #email="ngModel" />
+                    @if (email.invalid&&email.touched) {
+                    <small>Valid Email is Required</small>
+                    }
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select name="role" class="form-control" required [(ngModel)]="member.role" #role="ngModel">
+                            <option value=""> Select Role</option>
+                            @for (roleItem of roles; track roleItem) {
+                            <option [value]="roleItem">{{roleItem}}</option>
+                            }
+                        </select>
+
+                        @if (role.invalid&&role.touched) {
+                        <small>Role is required </small>
+                        }
+                    </div>
+                    <div class="'form-group">
+                        <label>Workspace</label>
+                        <select name="workspace" class="form-control" required [(ngModel)]="member.workspace"
+                            #workspace="ngModel">
+                            <option value="">Select Workspace</option>
+                            @for (workspaceItem of workspaces; track workspaceItem) {
+                                <option [value]="workspaceItem">{{workspaceItem}}</option>
+                            }
+                        </select>
+
+                        @if(workspace.invalid&& workspace.touched){
+                            <small>Workspace is required</small>
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Invitation Message</label>
+                    <textarea name="message" class="form-control textarea"  placeholder="Write short invitation message" [(ngModel)]="member.message">
+                    </textarea>
+                </div>
+
+                <div class="button-row">
+                    <button type="button" class="cancel-btn" routerLink="/team">Cancel</button>
+                    <button type="submit" class="send-btn" [disabled]="isSending"><i class="bi bi-send"></i>
+                    {{isSending?'Sending..':'Send Invite'}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

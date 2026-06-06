@@ -1,1 +1,73 @@
-<p>workspace-details works!</p>
+<div class="workspace-details-page">
+    <div class="topbar">
+        <div>
+            <span class="badge-title">Workspace Details</span>
+            <h1>{{workspace.name}}</h1>
+            <p>{{workspace.description}}</p>
+        </div>
+
+        <button class="primary-btn" routerLink="/projects">
+            Open Projects
+        </button>
+    </div>
+    <section class="hero-card">
+        <div>
+            <h2>{{workspace.progress}}</h2>
+            <p>Overall workspace progress</p>
+        </div>
+        <div class="hero-stats">
+            <div>
+                <h3>{{workspace.projects}}</h3>
+                <span>Projects</span>
+            </div>
+            <div>
+                <h3>{{workspace.members}}</h3>
+                <span>Members</span>
+            </div>
+            <div>
+                <h3>{{workspace.tasks}}</h3>
+                <span>Tasks</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-grid">
+        <div class="panel">
+            <div class="panel-head">
+                <h3>Workspace Projects</h3>
+                <button routerLink="/projects">View All</button>
+            </div>
+            @for (project of projects; track project.id) {
+            <div class="project-row">
+                <div>
+                    <h4>{{project.name}}</h4>
+                    <p>{{project.status}}</p>
+                </div>
+
+                <div class="progress-box">
+                    <span>{{project.progress}}%</span>
+                    <div class="progress-track">
+                        <div class="progress-fill" [style.width.%]="project.progress"></div>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+        <div class="panel">
+            <div class="panel-head">
+                <h3>Team Members</h3>
+            </div>
+
+
+            @for (member of members; track member.name) {
+            <div class="member-row">
+                <div class="avatar">{{member.avatar}}</div>
+                <div>
+                    <h4>{{member.name}}</h4>
+                    <p>{{member.role}}</p>
+                </div>
+            </div>
+            }
+        </div>
+    </section>
+</div>

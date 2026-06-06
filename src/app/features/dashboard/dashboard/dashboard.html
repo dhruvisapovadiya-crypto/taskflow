@@ -13,9 +13,18 @@
       <a class="active"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a>
       <a routerLink="/workspaces"><i class="bi bi-kanban-fill"></i> Boards</a>
       <a><i class="bi bi-folder2-open"></i> Projects</a>
-      <a><i class="bi bi-calendar3"></i> Calendar</a>
-      <a><i class="bi bi-bar-chart-line-fill"></i> Reports</a>
-      <a><i class="bi bi-gear-fill"></i> Settings</a>
+      <a routerLink="/calendar">
+        <i class="bi bi-calendar3"></i>
+        Calendar
+      </a>
+      <a routerLink="/reports">
+        <i class="bi bi-bar-chart-line-fill"></i>
+        Reports
+      </a>
+      <a routerLink="/settings">
+        <i class="bi bi-gear-fill"></i>
+        Settings
+      </a>
     </nav>
 
     <div class="upgrade-box">
@@ -31,7 +40,7 @@
     <header class="topbar">
       <div>
         <span class="eyebrow">Welcome back!!</span>
-        <h1>Hello,  {{ userName }}</h1>
+        <h1>Hello, {{ userName }}</h1>
         <p>Here is your project command center for today.</p>
       </div>
 
@@ -72,17 +81,17 @@
 
     <section class="stats-grid">
       @for (stat of stats; track stat) {
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="bi" [class]="stat.icon"></i>
-          </div>
-
-          <div>
-            <p>{{ stat.title }}</p>
-            <h3>{{ stat.value }}</h3>
-            <span>{{ stat.change }} this month</span>
-          </div>
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="bi" [class]="stat.icon"></i>
         </div>
+
+        <div>
+          <p>{{ stat.title }}</p>
+          <h3>{{ stat.value }}</h3>
+          <span>{{ stat.change }} this month</span>
+        </div>
+      </div>
       }
     </section>
 
@@ -98,24 +107,24 @@
         </div>
 
         @for (project of projects; track project) {
-          <div class="project-row">
-            <div class="project-info">
-              <div class="project-avatar">{{ project.name.charAt(0) }}</div>
-              <div>
-                <h4>{{ project.name }}</h4>
-                <p>{{ project.team }}</p>
-              </div>
-            </div>
-
-            <div class="project-status">{{ project.status }}</div>
-
-            <div class="project-progress">
-              <div class="progress-track">
-                <div class="progress-fill" [style.width.%]="project.progress"></div>
-              </div>
-              <span>{{ project.progress }}%</span>
+        <div class="project-row">
+          <div class="project-info">
+            <div class="project-avatar">{{ project.name.charAt(0) }}</div>
+            <div>
+              <h4>{{ project.name }}</h4>
+              <p>{{ project.team }}</p>
             </div>
           </div>
+
+          <div class="project-status">{{ project.status }}</div>
+
+          <div class="project-progress">
+            <div class="progress-track">
+              <div class="progress-fill" [style.width.%]="project.progress"></div>
+            </div>
+            <span>{{ project.progress }}%</span>
+          </div>
+        </div>
         }
       </div>
 
@@ -128,22 +137,18 @@
         </div>
 
         @for (task of tasks; track task) {
-          <div class="task-row">
-            <div class="check-dot"></div>
+        <div class="task-row">
+          <div class="check-dot"></div>
 
-            <div>
-              <h4>{{ task.title }}</h4>
-              <p>{{ task.tag }} • {{ task.time }}</p>
-            </div>
-
-            <span
-              class="priority"
-              [class.high]="task.priority === 'High'"
-              [class.medium]="task.priority === 'Medium'"
-            >
-              {{ task.priority }}
-            </span>
+          <div>
+            <h4>{{ task.title }}</h4>
+            <p>{{ task.tag }} • {{ task.time }}</p>
           </div>
+
+          <span class="priority" [class.high]="task.priority === 'High'" [class.medium]="task.priority === 'Medium'">
+            {{ task.priority }}
+          </span>
+        </div>
         }
       </div>
 

@@ -1,1 +1,104 @@
-<p>team-members works!</p>
+<div class="team-page">
+
+    <header class="team-header">
+        <div>
+            <span class="badge-title">Team Center</span>
+            <h1>Team Members</h1>
+            <p>Manage members, roles, workload and productivity.</p>
+        </div>
+
+        <button class="invite-btn" routerLink="/invite-member">
+            <i class="bi bi-person-plus"></i>
+            Invite Member
+        </button>
+    </header>
+
+    <section class="stats-grid">
+        <div class="stat-card">
+            <i class="bi bi-people-fill"></i>
+            <div>
+                <h3>{{ members.length }}</h3>
+                <span>Total Members</span>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <i class="bi bi-lightning-charge-fill"></i>
+            <div>
+                <h3>86%</h3>
+                <span>Avg Performance</span>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <i class="bi bi-list-check"></i>
+            <div>
+                <h3>78</h3>
+                <span>Assigned Tasks</span>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <i class="bi bi-check2-circle"></i>
+            <div>
+                <h3>59</h3>
+                <span>Completed Tasks</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="member-grid">
+        @for (member of members; track member.id) {
+        <div class="member-card">
+
+            <div class="member-top">
+                <div class="avatar">
+                    {{ member.avatar }}
+                </div>
+
+                <span class="status" [class.online]="member.status === 'Online'" [class.away]="member.status === 'Away'"
+                    [class.offline]="member.status === 'Offline'">
+                    {{ member.status }}
+                </span>
+            </div>
+
+            <h3>{{ member.name }}</h3>
+            <p class="email">{{ member.email }}</p>
+
+            <span class="role-badge">
+                {{ member.role }}
+            </span>
+
+            <div class="task-info">
+                <div>
+                    <strong>{{ member.tasks }}</strong>
+                    <span>Total Tasks</span>
+                </div>
+
+                <div>
+                    <strong>{{ member.completed }}</strong>
+                    <span>Completed</span>
+                </div>
+            </div>
+
+            <div class="performance">
+                <div class="performance-head">
+                    <span>Performance</span>
+                    <b>{{ member.performance }}%</b>
+                </div>
+
+                <div class="progress-track">
+                    <div class="progress-fill" [style.width.%]="member.performance">
+                    </div>
+                </div>
+            </div>
+
+            <button class="view-btn">
+                View Profile
+            </button>
+
+        </div>
+        }
+    </section>
+
+</div>

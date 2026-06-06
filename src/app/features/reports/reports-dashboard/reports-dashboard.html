@@ -1,1 +1,178 @@
-<p>reports-dashboard works!</p>
+<div class="reports-page">
+
+  <header class="reports-header">
+    <div>
+      <span class="badge-title">Analytics Center</span>
+      <h1>Reports Dashboard</h1>
+      <p>Track team health, project risk and delivery performance.</p>
+    </div>
+
+    <button class="export-btn">
+      <i class="bi bi-download"></i>
+      Export Report
+    </button>
+  </header>
+
+  <section class="stats-grid">
+    @for (stat of stats; track stat.title) {
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="bi" [class]="stat.icon"></i>
+        </div>
+
+        <div>
+          <p>{{ stat.title }}</p>
+          <h3>{{ stat.value }}</h3>
+          <span>{{ stat.note }}</span>
+        </div>
+      </div>
+    }
+  </section>
+
+  <section class="hero-analytics">
+
+    <div class="hero-left">
+      <span class="hero-badge">Team Health Score</span>
+
+      <h2>89%</h2>
+
+      <h3>Excellent Performance 🚀</h3>
+
+      <p>
+        Your team is delivering faster than last sprint with strong completion
+        rate, better collaboration and fewer blocked tasks.
+      </p>
+
+      <div class="hero-metrics">
+        <div>
+          <b>94%</b>
+          <span>Deadline Success</span>
+        </div>
+
+        <div>
+          <b>12%</b>
+          <span>Growth</span>
+        </div>
+
+        <div>
+          <b>7</b>
+          <span>Risk Items</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="score-circle">
+        <div>
+          <strong>89</strong>
+          <span>/100</span>
+        </div>
+      </div>
+
+      <p>Overall project health is stable and improving.</p>
+    </div>
+
+  </section>
+
+  <section class="content-grid">
+
+    <div class="panel project-panel">
+      <div class="panel-head">
+        <div>
+          <h3>Project Health</h3>
+          <p>Risk and delivery score by project</p>
+        </div>
+      </div>
+
+      @for (project of projectHealth; track project.name) {
+        <div class="health-card">
+
+          <div class="health-top">
+            <div>
+              <h4>{{ project.name }}</h4>
+              <p>{{ project.completed }} completed • {{ project.pending }} pending</p>
+            </div>
+
+            <span
+              class="health-status"
+              [class.healthy]="project.status === 'Healthy'"
+              [class.warning]="project.status === 'Warning'"
+              [class.risk]="project.status === 'At Risk'"
+            >
+              {{ project.status }}
+            </span>
+          </div>
+
+          <div class="health-score">
+            <div>
+              <span>Score</span>
+              <b>{{ project.score }}%</b>
+            </div>
+
+            <button>View Details</button>
+          </div>
+
+        </div>
+      }
+    </div>
+
+    <div class="panel performer-panel">
+      <div class="panel-head">
+        <div>
+          <h3>Top Performers</h3>
+          <p>Best contributors this sprint</p>
+        </div>
+      </div>
+
+      @for (member of performers; track member.name) {
+        <div class="performer-row">
+
+          <div class="rank">
+            {{ member.rank }}
+          </div>
+
+          <div class="avatar">
+            {{ member.avatar }}
+          </div>
+
+          <div class="performer-info">
+            <h4>{{ member.name }}</h4>
+            <p>{{ member.role }}</p>
+          </div>
+
+          <div class="performer-score">
+            <b>{{ member.score }}%</b>
+            <span>{{ member.tasks }} tasks</span>
+          </div>
+
+        </div>
+      }
+    </div>
+
+  </section>
+
+  <section class="activity-panel panel">
+    <div class="panel-head">
+      <div>
+        <h3>Recent Activity</h3>
+        <p>Latest movement across your workspace</p>
+      </div>
+    </div>
+
+    <div class="activity-grid">
+      @for (activity of activities; track activity.text) {
+        <div class="activity-item">
+          <div class="activity-icon">
+            <i class="bi" [class]="activity.icon"></i>
+          </div>
+
+          <div>
+            <h4>{{ activity.text }}</h4>
+            <p>{{ activity.time }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+</div>

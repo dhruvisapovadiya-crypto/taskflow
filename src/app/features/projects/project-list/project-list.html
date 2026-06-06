@@ -13,7 +13,10 @@
       <a routerLink="/dashboard"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a>
       <a routerLink="/workspaces"><i class="bi bi-kanban-fill"></i> Workspaces</a>
       <a class="active"><i class="bi bi-folder2-open"></i> Projects</a>
-      <a><i class="bi bi-calendar3"></i> Calendar</a>
+      <a routerLink="/calendar">
+        <i class="bi bi-calendar3"></i>
+        Calendar
+      </a>
       <a><i class="bi bi-bar-chart-line-fill"></i> Reports</a>
       <a><i class="bi bi-gear-fill"></i> Settings</a>
     </nav>
@@ -58,58 +61,54 @@
 
     <section class="projects-grid">
       @for (project of projects; track project.id) {
-        <div class="project-card">
+      <div class="project-card">
 
-          <div class="card-head">
-            <div class="project-icon">
-              {{ project.name.charAt(0) }}
-            </div>
-
-            <span
-              class="priority"
-              [class.high]="project.priority === 'High'"
-              [class.medium]="project.priority === 'Medium'"
-              [class.low]="project.priority === 'Low'"
-            >
-              {{ project.priority }}
-            </span>
+        <div class="card-head">
+          <div class="project-icon">
+            {{ project.name.charAt(0) }}
           </div>
 
-          <h3>{{ project.name }}</h3>
-          <p class="desc">{{ project.desc }}</p>
-
-          <div class="status-line">
-            <span>{{ project.status }}</span>
-            <b>{{ project.progress }}%</b>
-          </div>
-
-          <div class="progress-track">
-            <div class="progress-fill" [style.width.%]="project.progress"></div>
-          </div>
-
-          <div class="meta-grid">
-            <div>
-              <i class="bi bi-list-task"></i>
-              <span>{{ project.tasks }} Tasks</span>
-            </div>
-
-            <div>
-              <i class="bi bi-people"></i>
-              <span>{{ project.members }} Members</span>
-            </div>
-
-            <div>
-              <i class="bi bi-calendar-event"></i>
-              <span>Due {{ project.due }}</span>
-            </div>
-          </div>
-
-          <button class="open-btn" [routerLink]="['/board', project.id]">
-            Open Board
-            <i class="bi bi-arrow-right"></i>
-          </button>
-
+          <span class="priority" [class.high]="project.priority === 'High'"
+            [class.medium]="project.priority === 'Medium'" [class.low]="project.priority === 'Low'">
+            {{ project.priority }}
+          </span>
         </div>
+
+        <h3>{{ project.name }}</h3>
+        <p class="desc">{{ project.desc }}</p>
+
+        <div class="status-line">
+          <span>{{ project.status }}</span>
+          <b>{{ project.progress }}%</b>
+        </div>
+
+        <div class="progress-track">
+          <div class="progress-fill" [style.width.%]="project.progress"></div>
+        </div>
+
+        <div class="meta-grid">
+          <div>
+            <i class="bi bi-list-task"></i>
+            <span>{{ project.tasks }} Tasks</span>
+          </div>
+
+          <div>
+            <i class="bi bi-people"></i>
+            <span>{{ project.members }} Members</span>
+          </div>
+
+          <div>
+            <i class="bi bi-calendar-event"></i>
+            <span>Due {{ project.due }}</span>
+          </div>
+        </div>
+
+        <button class="open-btn" [routerLink]="['/board', project.id]">
+          Open Board
+          <i class="bi bi-arrow-right"></i>
+        </button>
+
+      </div>
       }
     </section>
 

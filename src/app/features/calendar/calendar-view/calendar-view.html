@@ -1,1 +1,153 @@
-<p>calendar-view works!</p>
+<div class="calendar-page">
+
+  <header class="calendar-header">
+    <div>
+      <span class="badge-title">Sprint Calendar</span>
+      <h1>Calendar</h1>
+      <p>Track meetings, deadlines, sprint planning and project reviews.</p>
+    </div>
+
+    <button class="create-btn">
+      <i class="bi bi-plus-lg"></i>
+      Add Event
+    </button>
+  </header>
+
+  <section class="calendar-summary">
+    <div class="summary-card">
+      <i class="bi bi-calendar-check"></i>
+      <div>
+        <h3>12</h3>
+        <span>Events This Month</span>
+      </div>
+    </div>
+
+    <div class="summary-card">
+      <i class="bi bi-alarm"></i>
+      <div>
+        <h3>4</h3>
+        <span>Upcoming Deadlines</span>
+      </div>
+    </div>
+
+    <div class="summary-card">
+      <i class="bi bi-people"></i>
+      <div>
+        <h3>6</h3>
+        <span>Team Meetings</span>
+      </div>
+    </div>
+
+    <div class="summary-card">
+      <i class="bi bi-rocket-takeoff"></i>
+      <div>
+        <h3>2</h3>
+        <span>Active Sprints</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="calendar-layout">
+
+    <div class="calendar-card">
+
+      <div class="calendar-top">
+        <div>
+          <h2>{{ monthName }}</h2>
+          <p>Project timeline overview</p>
+        </div>
+
+        <div class="calendar-actions">
+          <button>
+            <i class="bi bi-chevron-left"></i>
+          </button>
+
+          <button>
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="week-row">
+        <span>Mon</span>
+        <span>Tue</span>
+        <span>Wed</span>
+        <span>Thu</span>
+        <span>Fri</span>
+        <span>Sat</span>
+        <span>Sun</span>
+      </div>
+
+      <div class="calendar-grid">
+        @for (day of days; track day.date) {
+          <div class="day-card" [class.today]="day.isToday">
+
+            <div class="day-head">
+              <span>{{ day.day }}</span>
+              <b>{{ day.date }}</b>
+            </div>
+
+            <div class="event-list">
+              @for (event of day.events; track event) {
+                <span class="event-pill">
+                  {{ event }}
+                </span>
+              }
+
+              @if (day.events.length === 0) {
+                <span class="empty-text">No event</span>
+              }
+            </div>
+
+          </div>
+        }
+      </div>
+
+    </div>
+
+    <aside class="upcoming-card">
+      <div class="side-head">
+        <h3>Upcoming Events</h3>
+        <p>Next important work items</p>
+      </div>
+
+      <div class="event-timeline">
+        @for (event of upcomingEvents; track event.title) {
+          <div class="timeline-item">
+
+            <div
+              class="timeline-icon"
+              [class.deadline]="event.type === 'Deadline'"
+              [class.meeting]="event.type === 'Meeting'"
+              [class.sprint]="event.type === 'Sprint'"
+              [class.review]="event.type === 'Review'"
+            >
+              <i class="bi bi-calendar-event"></i>
+            </div>
+
+            <div>
+              <span class="event-type">{{ event.type }}</span>
+              <h4>{{ event.title }}</h4>
+              <p>{{ event.project }}</p>
+
+              <div class="event-meta">
+                <span>
+                  <i class="bi bi-calendar3"></i>
+                  {{ event.date }}
+                </span>
+
+                <span>
+                  <i class="bi bi-clock"></i>
+                  {{ event.time }}
+                </span>
+              </div>
+            </div>
+
+          </div>
+        }
+      </div>
+    </aside>
+
+  </section>
+
+</div>
